@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="union_energy_calculator_menu_settings"
+        name="Calculator Settings"
+        parent="crm.crm_menu_config"
+        sequence="20"/>
+
+    <menuitem id="union_energy_calculator_menu_settings_action"
+              name="Calculator Settings"
+              parent="union_energy_calculator_menu_settings"
+              action="action_calculator_setting_server"
+              sequence="20"/>
+
+    <menuitem id="union_energy_calculator_menu_enquiries_action"
+              name="Calculator Enquiries"
+              parent="union_energy_calculator_menu_settings"
+              action="action_calculator_enquiry"
+              sequence="21"/>
+</odoo>

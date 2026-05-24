@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="calculator_setting_default" model="calculator.setting">
+        <field name="name">Calculator Settings</field>
+        <field name="price_per_kwh">0.30</field>
+        <field name="kwh_yield_per_m2">15.0</field>
+        <field name="install_price_per_m2">800.0</field>
+        <field name="residential_multiplier">1.0</field>
+        <field name="commercial_multiplier">1.15</field>
+        <field name="single_phase_surcharge">0.0</field>
+        <field name="three_phase_surcharge">500.0</field>
+    </record>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_calculator_setting_manager,calculator.setting manager,model_calculator_setting,union_energy_calculator.group_union_energy_calculator_manager,1,1,1,1
+access_calculator_setting_user,calculator.setting user,model_calculator_setting,union_energy_calculator.group_union_energy_calculator_user,1,0,0,0
+access_calculator_enquiry_manager,calculator.enquiry manager,model_calculator_enquiry,union_energy_calculator.group_union_energy_calculator_manager,1,1,1,1
+access_calculator_enquiry_user,calculator.enquiry user,model_calculator_enquiry,union_energy_calculator.group_union_energy_calculator_user,1,1,1,0
+access_calculator_enquiry_public,calculator.enquiry public,model_calculator_enquiry,base.group_public,1,0,1,0

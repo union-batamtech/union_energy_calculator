@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="crm_tag_website_calculator" model="crm.tag">
+        <field name="name">Website Calculator</field>
+        <field name="color" eval="4"/>
+    </record>
+</odoo>

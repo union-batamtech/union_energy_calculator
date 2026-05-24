@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="calculator_page" name="Energy Calculator">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <section class="o_union_energy_calculator">
+                    <div class="o_calc_hero">
+                        <div class="container">
+                            <h1 class="o_calc_hero__title">Solar Savings Calculator</h1>
+                            <p class="o_calc_hero__subtitle">
+                                Discover how much you could save with solar — get your personalised estimate in seconds.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="container o_calc_body">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-10">
+                                <form id="union_energy_calculator_form" class="o_calc_card" novalidate="novalidate">
+                                    <div class="o_calc_section">
+                                        <h2 class="o_calc_section__title">I am enquiring for</h2>
+                                        <div class="o_calc_segments" role="group" aria-label="Enquiry type">
+                                            <label class="o_calc_segment o_calc_segment--active">
+                                                <input type="radio" name="enquiry_type" value="residential" checked="checked"/>
+                                                <span class="o_calc_segment__icon">🏠</span>
+                                                <span class="o_calc_segment__label">Residential</span>
+                                                <span class="o_calc_segment__hint">Home &amp; landed</span>
+                                            </label>
+                                            <label class="o_calc_segment">
+                                                <input type="radio" name="enquiry_type" value="commercial"/>
+                                                <span class="o_calc_segment__icon">🏢</span>
+                                                <span class="o_calc_segment__label">Commercial</span>
+                                                <span class="o_calc_segment__hint">Business premises</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="o_calc_section">
+                                        <h2 class="o_calc_section__title">Your property</h2>
+                                        <div class="o_calc_slider-group">
+                                            <div class="o_calc_slider-header">
+                                                <label for="rooftop_surface_m2_range">Rooftop surface</label>
+                                                <span class="o_calc_slider-value">
+                                                    <span id="rooftop_surface_m2_display">80</span> m²
+                                                </span>
+                                            </div>
+                                            <input type="range" class="o_calc_range" id="rooftop_surface_m2_range"
+                                                   min="10" max="500" step="1" value="80"/>
+                                            <input type="hidden" name="rooftop_surface_m2" id="rooftop_surface_m2" value="80"/>
+                                        </div>
+                                        <div class="o_calc_slider-group">
+                                            <div class="o_calc_slider-header">
+                                                <label for="monthly_electricity_bill_range">Monthly electricity bill</label>
+                                                <span class="o_calc_slider-value">
+                                                    <span t-out="currency_symbol"/>
+                                                    <span id="monthly_electricity_bill_display">200</span>
+                                                </span>
+                                            </div>
+                                            <input type="range" class="o_calc_range" id="monthly_electricity_bill_range"
+                                                   min="50" max="5000" step="10" value="200"/>
+                                            <input type="hidden" name="monthly_electricity_bill" id="monthly_electricity_bill" value="200"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="o_calc_section">
+                                        <h2 class="o_calc_section__title">Phase type</h2>
+                                        <div class="o_calc_pills" role="group" aria-label="Phase type">
+                                            <label class="o_calc_pill o_calc_pill--active">
+                                                <input type="radio" name="phase_type" value="single" checked="checked"/>
+                                                Single Phase
+                                            </label>
+                                            <label class="o_calc_pill">
+                                                <input type="radio" name="phase_type" value="three"/>
+                                                Three Phase
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="o_calc_section">
+                                        <h2 class="o_calc_section__title">Your contact details</h2>
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <label class="form-label" for="contact_name">Full name *</label>
+                                                <input type="text" class="form-control o_calc_input" id="contact_name"
+                                                       name="contact_name" required="required" placeholder="John Tan"/>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label" for="email">Email *</label>
+                                                <input type="email" class="form-control o_calc_input" id="email"
+                                                       name="email" required="required" placeholder="you@email.com"/>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label" for="phone">Phone *</label>
+                                                <input type="tel" class="form-control o_calc_input" id="phone"
+                                                       name="phone" required="required" placeholder="+65 9123 4567"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="o_calc_result d-none" id="calculator_result" aria-live="polite">
+                                        <div class="o_calc_result__grid">
+                                            <div class="o_calc_result__stat o_calc_result__stat--highlight">
+                                                <span class="o_calc_result__label">Cost efficiency</span>
+                                                <span class="o_calc_result__value o_calc_result__value--lg">
+                                                    <span id="calculator_cost_efficiency">—</span>%
+                                                </span>
+                                                <span class="o_calc_result__hint">of your consumption offset by solar</span>
+                                            </div>
+                                            <div class="o_calc_result__stat">
+                                                <span class="o_calc_result__label">Est. monthly savings</span>
+                                                <span class="o_calc_result__value">
+                                                    <span t-out="currency_symbol"/>
+                                                    <span id="calculator_monthly_savings">—</span>
+                                                </span>
+                                            </div>
+                                            <div class="o_calc_result__stat">
+                                                <span class="o_calc_result__label">Est. consumption</span>
+                                                <span class="o_calc_result__value">
+                                                    <span id="calculator_estimated_kwh">—</span> kWh
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="o_calc_success d-none" id="calculator_success" role="alert">
+                                        <div class="o_calc_success__icon">✓</div>
+                                        <h3>Enquiry submitted!</h3>
+                                        <p>Thank you — our team will reach out shortly with your personalised solar proposal.</p>
+                                    </div>
+
+                                    <div class="o_calc_error alert alert-danger d-none" id="calculator_error" role="alert"/>
+
+                                    <div class="o_calc_actions">
+                                        <button type="button" class="btn o_calc_btn o_calc_btn--outline o_calculator_compute">
+                                            Recalculate
+                                        </button>
+                                        <button type="button" class="btn o_calc_btn o_calc_btn--primary o_calculator_submit">
+                                            Submit Enquiry
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

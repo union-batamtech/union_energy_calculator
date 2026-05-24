@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_lead_view_form_calculator" model="ir.ui.view">
+        <field name="name">crm.lead.form.calculator</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Calculator Enquiry" name="calculator_enquiry"
+                      invisible="not calculator_enquiry_id">
+                    <group>
+                        <group string="Source">
+                            <field name="calculator_enquiry_id"/>
+                        </group>
+                        <group string="Contact">
+                            <field name="contact_name"/>
+                            <field name="email_from"/>
+                            <field name="phone"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Inputs">
+                            <field name="calculator_enquiry_type"/>
+                            <field name="calculator_phase_type"/>
+                            <field name="calculator_rooftop_surface_m2"/>
+                            <field name="calculator_monthly_bill"/>
+                        </group>
+                        <group string="Results">
+                            <field name="calculator_estimated_kwh"/>
+                            <field name="calculator_solar_yield_kwh"/>
+                            <field name="calculator_cost_efficiency_pct"/>
+                            <field name="calculator_monthly_savings"/>
+                            <field name="expected_revenue"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

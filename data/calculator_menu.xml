@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- No website_id: Odoo clones under each site's top menu (not Default Main Menu). -->
+  <record id="menu_solar_savings_calculator" model="website.menu">
+    <field name="name">Solar Savings Calculator</field>
+    <field name="url">/solar-savings-calculator</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="sequence" eval="16"/>
+    <field name="page_id" eval="False"/>
+  </record>
+</odoo>

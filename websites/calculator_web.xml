@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="calculator_page" name="Energy Calculator">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure">
+    <template id="calculator_page" name="Energy Calculator"
+              inherit_id="website_landing_faq.solar_savings_calculator_page">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure o_wlf_solar_savings_calculator o_wlf_content_page">
                 <section class="o_union_energy_calculator">
                     <div class="o_calc_hero">
                         <div class="container">
@@ -134,7 +135,7 @@
                                         <button type="button" class="btn o_calc_btn o_calc_btn--outline o_calculator_compute">
                                             Recalculate
                                         </button>
-                                        <button type="button" class="btn o_calc_btn o_calc_btn--primary o_calculator_submit">
+                                        <button type="button" class="btn btn-dark btn-lg o_wlf_hero__cta o_calc_btn o_calc_btn--primary o_calculator_submit">
                                             Submit Enquiry
                                         </button>
                                     </div>
@@ -144,6 +145,6 @@
                     </div>
                 </section>
             </div>
-        </t>
+        </xpath>
     </template>
 </odoo>

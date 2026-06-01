@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Controller serves /solar-savings-calculator; unpublish duplicate website.page route. -->
+    <record id="website_landing_faq.page_solar_savings_calculator" model="website.page">
+        <field name="is_published" eval="False"/>
+    </record>
+</odoo>

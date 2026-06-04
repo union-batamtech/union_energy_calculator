@@ -181,7 +181,7 @@
     <!-- ==================== PAGE (inherits website shell) ==================== -->
 
     <template id="calculator_page" name="Energy Calculator"
-              inherit_id="website_landing_faq.solar_savings_calculator_page">
+              inherit_id="union_energy_web.solar_savings_calculator_page">
         <xpath expr="//div[@id='wrap']" position="replace">
             <div id="wrap" class="oe_structure o_wlf_solar_savings_calculator o_wlf_content_page">
                 <t t-call="union_energy_calculator.calculator_page_content"/>

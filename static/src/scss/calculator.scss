@@ -1,0 +1,569 @@
+// Uses :root tokens from union_energy_web/static/src/scss/primary_variables.scss (via depends).
+// Do not use @import — forbidden in Odoo 19 custom SCSS.
+
+.o_union_energy_calculator {
+    --calc-primary: var(--o-wlf-orange);
+    --calc-primary-dark: var(--o-wlf-orange-hover);
+    --calc-accent: var(--o-wlf-yellow);
+    --calc-bg: #fff9e6;
+    --calc-card: #ffffff;
+    --calc-text: var(--o-wlf-hero-text);
+    --calc-muted: var(--o-wlf-body-muted);
+    --calc-border: var(--o-wlf-border);
+    --calc-radius: 1rem;
+    --calc-shadow: 0 10px 40px rgba(232, 93, 4, 0.1);
+}
+
+.o_union_energy_calculator .o_calc_hero {
+    background: #fff;
+    color: var(--o-wlf-hero-text);
+    padding: 0 0 2rem;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.o_union_energy_calculator .o_calc_hero__title {
+    color: var(--o-wlf-orange);
+    font-size: o-wlf-unquote("clamp(1.35rem, 2.4vw, 1.75rem)");
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 1rem;
+    letter-spacing: normal;
+}
+
+.o_union_energy_calculator .o_calc_hero__subtitle {
+    font-size: o-wlf-unquote("clamp(0.95rem, 1.1vw, 1.0625rem)");
+    line-height: 1.7;
+    color: var(--o-wlf-body-muted);
+    max-width: 36rem;
+    margin: 0 auto;
+}
+
+.o_union_energy_calculator .o_calc_body {
+    position: relative;
+    z-index: 1;
+}
+
+.o_union_energy_calculator .o_calc_card {
+    background: var(--calc-card);
+    border-radius: calc(var(--calc-radius) * 1.25);
+    box-shadow: var(--calc-shadow);
+    padding: 2rem 2.25rem;
+}
+
+.o_union_energy_calculator .o_calc_outcome {
+    margin-top: 0;
+    animation: o_calc_fadeIn 0.45s ease;
+}
+
+// —— Progress stepper ——
+
+.o_union_energy_calculator .o_calc_progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.o_union_energy_calculator .o_calc_progress__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 4.5rem;
+}
+
+.o_union_energy_calculator .o_calc_progress__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 2px solid var(--calc-border);
+    background: #fff;
+    color: var(--calc-muted);
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.o_union_energy_calculator .o_calc_progress__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--calc-muted);
+}
+
+.o_union_energy_calculator .o_calc_progress__step--active .o_calc_progress__num {
+    border-color: var(--o-wlf-orange);
+    background: var(--o-wlf-orange);
+    color: #fff;
+}
+
+.o_union_energy_calculator .o_calc_progress__step--active .o_calc_progress__label {
+    color: var(--o-wlf-orange);
+}
+
+.o_union_energy_calculator .o_calc_progress__step--done .o_calc_progress__num {
+    border-color: var(--o-wlf-orange);
+    background: var(--calc-bg);
+    color: transparent;
+    font-size: 0;
+    position: relative;
+
+    &::after {
+        content: "✓";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: var(--o-wlf-orange);
+    }
+}
+
+.o_union_energy_calculator .o_calc_progress__connector {
+    flex: 1;
+    min-width: 1.5rem;
+    max-width: 3rem;
+    height: 2px;
+    background: var(--calc-border);
+    margin: 0 0.25rem 1.25rem;
+}
+
+// —— Wizard steps ——
+
+.o_union_energy_calculator .o_calc_steps {
+    min-height: 12rem;
+}
+
+.o_union_energy_calculator .o_calc_step .o_calc_section {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.o_union_energy_calculator .o_calc_section__title {
+    font-size: o-wlf-unquote("clamp(1.1rem, 1.8vw, 1.25rem)");
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: normal;
+    color: var(--o-wlf-orange);
+    margin-bottom: 1rem;
+    line-height: 1.35;
+}
+
+.o_union_energy_calculator .o_calc_segments {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.o_union_energy_calculator .o_calc_segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1.25rem 1rem;
+    border: 2px solid var(--calc-border);
+    border-radius: var(--calc-radius);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    text-align: center;
+    margin: 0;
+}
+
+.o_union_energy_calculator .o_calc_segment input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.o_union_energy_calculator .o_calc_segment:hover {
+    border-color: var(--o-wlf-orange-hover);
+    transform: translateY(-2px);
+}
+
+.o_union_energy_calculator .o_calc_segment--active {
+    border-color: var(--o-wlf-orange);
+    background: var(--calc-bg);
+    box-shadow: 0 4px 16px rgba(232, 93, 4, 0.12);
+}
+
+.o_union_energy_calculator .o_calc_segment__icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.o_union_energy_calculator .o_calc_segment__label {
+    font-weight: 600;
+    color: var(--calc-text);
+    font-size: 1.05rem;
+}
+
+.o_union_energy_calculator .o_calc_segment__hint {
+    font-size: 0.8rem;
+    color: var(--o-wlf-body-muted);
+}
+
+.o_union_energy_calculator .o_calc_slider-group {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.o_union_energy_calculator .o_calc_slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.o_union_energy_calculator .o_calc_slider-header label {
+    font-weight: 500;
+    color: var(--calc-text);
+    margin: 0;
+}
+
+.o_union_energy_calculator .o_calc_slider-value {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--calc-primary);
+}
+
+.o_union_energy_calculator .o_calc_range {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(90deg, var(--calc-primary) 0%, var(--o-wlf-yellow-light) 100%);
+    border-radius: 999px;
+    outline: none;
+}
+
+.o_union_energy_calculator .o_calc_range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--calc-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: grab;
+    transition: transform 0.15s;
+}
+
+.o_union_energy_calculator .o_calc_range::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.o_union_energy_calculator .o_calc_range::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--calc-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: grab;
+}
+
+.o_union_energy_calculator .o_calc_pills {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.o_union_energy_calculator .o_calc_pill {
+    padding: 0.65rem 1.5rem;
+    border: 2px solid var(--calc-border);
+    border-radius: 999px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0;
+}
+
+.o_union_energy_calculator .o_calc_pill input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.o_union_energy_calculator .o_calc_pill--active {
+    background: var(--o-wlf-orange);
+    border-color: var(--o-wlf-orange);
+    color: #fff;
+}
+
+.o_union_energy_calculator .o_calc_input {
+    border-radius: 0.5rem;
+    border-color: var(--calc-border);
+}
+
+.o_union_energy_calculator .o_calc_input:focus {
+    border-color: var(--calc-primary);
+    box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
+}
+
+// —— Step navigation ——
+
+.o_union_energy_calculator .o_calc_step_nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--calc-border);
+}
+
+.o_union_energy_calculator .o_calc_step_nav__primary {
+    display: flex;
+    gap: 0.75rem;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+
+.o_union_energy_calculator .o_calc_error {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.o_union_energy_calculator .o_calc_btn {
+    padding: 0.75rem 1.75rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.o_union_energy_calculator .o_calc_btn:hover {
+    transform: translateY(-1px);
+}
+
+.o_union_energy_calculator .o_calc_btn--outline {
+    background: transparent;
+    border: 2px solid var(--o-wlf-orange);
+    color: var(--o-wlf-orange);
+}
+
+.o_union_energy_calculator .o_calc_btn--outline:hover {
+    background: var(--calc-bg);
+    color: var(--o-wlf-orange);
+}
+
+// —— Outcome: success + pricing ——
+
+@keyframes o_calc_fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.o_union_energy_calculator .o_calc_success {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-align: left;
+    padding: 1.25rem 1.5rem;
+    background: var(--calc-bg);
+    border-radius: var(--calc-radius);
+    border-left: 4px solid var(--o-wlf-orange);
+    margin-bottom: 2rem;
+}
+
+.o_union_energy_calculator .o_calc_success__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    border-radius: 50%;
+    background: var(--o-wlf-orange);
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+.o_union_energy_calculator .o_calc_success h3 {
+    color: var(--calc-text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.o_union_energy_calculator .o_calc_success p {
+    color: var(--calc-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.55;
+}
+
+.o_union_energy_calculator .o_calc_pricing__header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.o_union_energy_calculator .o_calc_pricing__title {
+    color: var(--o-wlf-orange);
+    font-size: o-wlf-unquote("clamp(1.35rem, 2.2vw, 1.65rem)");
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.o_union_energy_calculator .o_calc_pricing__lead {
+    color: var(--calc-muted);
+    font-size: o-wlf-unquote("clamp(0.9rem, 1.05vw, 1rem)");
+    line-height: 1.65;
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+.o_union_energy_calculator .o_calc_pricing__hero {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: calc(var(--calc-radius) * 1.25);
+    background: linear-gradient(145deg,
+            var(--o-wlf-yellow) 0%,
+            var(--o-wlf-yellow-light) 55%,
+            #fff 100%);
+    box-shadow: 0 8px 28px rgba(232, 93, 4, 0.12);
+}
+
+.o_union_energy_calculator .o_calc_pricing__hero-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--calc-muted);
+    margin-bottom: 0.5rem;
+}
+
+.o_union_energy_calculator .o_calc_pricing__hero-value {
+    font-size: o-wlf-unquote("clamp(2.5rem, 5vw, 3.5rem)");
+    font-weight: 700;
+    color: var(--o-wlf-orange);
+    line-height: 1.1;
+    margin: 0 0 0.35rem;
+}
+
+.o_union_energy_calculator .o_calc_pricing__hero-hint {
+    font-size: 0.9rem;
+    color: var(--calc-muted);
+    margin: 0;
+}
+
+.o_union_energy_calculator .o_calc_pricing__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.o_union_energy_calculator .o_calc_pricing__card {
+    background: #fff;
+    border: 1px solid var(--calc-border);
+    border-radius: var(--calc-radius);
+    padding: 1.25rem 1rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.o_union_energy_calculator .o_calc_pricing__card:hover {
+    border-color: var(--o-wlf-orange);
+    box-shadow: 0 8px 24px rgba(232, 93, 4, 0.1);
+}
+
+.o_union_energy_calculator .o_calc_pricing__card-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--calc-muted);
+    margin-bottom: 0.5rem;
+}
+
+.o_union_energy_calculator .o_calc_pricing__card-value {
+    font-size: o-wlf-unquote("clamp(1.25rem, 2vw, 1.5rem)");
+    font-weight: 700;
+    color: var(--calc-text);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.o_union_energy_calculator .o_calc_pricing__card-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--calc-muted);
+    margin-top: 0.25rem;
+}
+
+.o_union_energy_calculator .o_calc_outcome__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--calc-border);
+}
+
+@media (max-width: 768px) {
+    .o_union_energy_calculator .o_calc_card {
+        padding: 1.25rem;
+    }
+
+    .o_union_energy_calculator .o_calc_segments {
+        grid-template-columns: 1fr;
+    }
+
+    .o_union_energy_calculator .o_calc_progress__connector {
+        display: none;
+    }
+
+    .o_union_energy_calculator .o_calc_progress {
+        gap: 0.5rem 1rem;
+    }
+
+    .o_union_energy_calculator .o_calc_pricing__cards {
+        grid-template-columns: 1fr;
+    }
+
+    .o_union_energy_calculator .o_calc_step_nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .o_union_energy_calculator .o_calc_step_nav__primary {
+        margin-left: 0;
+        flex-direction: column;
+    }
+
+    .o_union_energy_calculator .o_calc_step_nav .o_calc_btn,
+    .o_union_energy_calculator .o_calc_step_nav .o_wlf_cta__btn,
+    .o_union_energy_calculator .o_calc_outcome__actions .o_wlf_cta__btn {
+        width: 100%;
+    }
+
+    .o_union_energy_calculator .o_calc_success {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+}

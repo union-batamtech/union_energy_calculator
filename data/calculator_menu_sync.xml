@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Run on every calculator upgrade: restore Calculator in website navbar. -->
+    <function model="website.menu" name="_union_energy_calculator_ensure_menu"/>
+</odoo>

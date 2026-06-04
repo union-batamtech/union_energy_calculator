@@ -207,6 +207,7 @@ class CalculatorEnquiry(models.Model):
         self.ensure_one()
         return {
             'estimated_kwh': self.estimated_kwh,
+            'solar_yield_kwh': self.solar_yield_kwh,
             'cost_efficiency_pct': self.cost_efficiency_pct,
             'monthly_savings': self.monthly_savings,
             'currency_id': self.currency_id.id,

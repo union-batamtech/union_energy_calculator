@@ -55,12 +55,16 @@ class CalculatorController(http.Controller):
                 raise UserError(_('%(label)s is required.', label=label))
         return vals
 
-    @http.route('/calculator', type='http', auth='public', website=True, sitemap=True)
+    @http.route('/solar-savings-calculator', type='http', auth='public', website=True, sitemap=True)
     def calculator_page(self, **kwargs):
         settings = request.env['calculator.setting'].sudo().get_settings()
         return request.render('union_energy_calculator.calculator_page', {
             'currency_symbol': settings.currency_id.symbol,
         })
+
+    @http.route('/calculator', type='http', auth='public', website=True)
+    def calculator_page_redirect(self, **kwargs):
+        return request.redirect('/solar-savings-calculator', code=301)
 
     @http.route('/calculator/calculate', type='json', auth='public', website=True)
     def calculator_calculate(self, **kwargs):

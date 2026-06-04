@@ -8,10 +8,35 @@
             <div class="container">
                 <h1 class="o_calc_hero__title">Solar Savings Calculator</h1>
                 <p class="o_calc_hero__subtitle">
-                    Discover how much you could save with solar — get your personalised estimate in seconds.
+                    Tell us about your property in a few steps — your personalised solar estimate
+                    appears after you submit your enquiry.
                 </p>
             </div>
         </header>
+    </template>
+
+    <template id="calculator_progress" name="Calculator Progress">
+        <nav class="o_calc_progress" aria-label="Calculator steps">
+            <div class="o_calc_progress__step o_calc_progress__step--active" data-progress-step="1">
+                <span class="o_calc_progress__num">1</span>
+                <span class="o_calc_progress__label">Type</span>
+            </div>
+            <div class="o_calc_progress__connector" aria-hidden="true"/>
+            <div class="o_calc_progress__step" data-progress-step="2">
+                <span class="o_calc_progress__num">2</span>
+                <span class="o_calc_progress__label">Property</span>
+            </div>
+            <div class="o_calc_progress__connector" aria-hidden="true"/>
+            <div class="o_calc_progress__step" data-progress-step="3">
+                <span class="o_calc_progress__num">3</span>
+                <span class="o_calc_progress__label">Phase</span>
+            </div>
+            <div class="o_calc_progress__connector" aria-hidden="true"/>
+            <div class="o_calc_progress__step" data-progress-step="4">
+                <span class="o_calc_progress__num">4</span>
+                <span class="o_calc_progress__label">Contact</span>
+            </div>
+        </nav>
     </template>
 
     <template id="calculator_section_enquiry_type" name="Calculator Enquiry Type">
@@ -53,7 +78,7 @@
                 <div class="o_calc_slider-header">
                     <label for="monthly_electricity_bill_range">Monthly electricity bill</label>
                     <span class="o_calc_slider-value">
-                        <span t-out="currency_symbol"/>
+                        <span class="o_calc_currency_symbol" t-out="currency_symbol"/>
                         <span id="monthly_electricity_bill_display">200</span>
                     </span>
                 </div>
@@ -107,62 +132,117 @@
         </div>
     </template>
 
-    <template id="calculator_results" name="Calculator Results">
-        <div class="o_calc_result d-none" id="calculator_result" aria-live="polite">
-            <div class="o_calc_result__grid">
-                <div class="o_calc_result__stat o_calc_result__stat--highlight">
-                    <span class="o_calc_result__label">Cost efficiency</span>
-                    <span class="o_calc_result__value o_calc_result__value--lg">
-                        <span id="calculator_cost_efficiency">—</span>%
-                    </span>
-                    <span class="o_calc_result__hint">of your consumption offset by solar</span>
-                </div>
-                <div class="o_calc_result__stat">
-                    <span class="o_calc_result__label">Est. monthly savings</span>
-                    <span class="o_calc_result__value">
-                        <span t-out="currency_symbol"/>
-                        <span id="calculator_monthly_savings">—</span>
-                    </span>
-                </div>
-                <div class="o_calc_result__stat">
-                    <span class="o_calc_result__label">Est. consumption</span>
-                    <span class="o_calc_result__value">
-                        <span id="calculator_estimated_kwh">—</span> kWh
-                    </span>
-                </div>
+    <template id="calculator_step_nav" name="Calculator Step Navigation">
+        <div class="o_calc_step_nav">
+            <button type="button" class="btn o_calc_btn o_calc_btn--outline o_calc_step_back d-none">
+                Back
+            </button>
+            <div class="o_calc_step_nav__primary">
+                <button type="button" class="btn o_calc_btn o_calc_btn--outline o_calc_step_next">
+                    Next
+                </button>
+                <button type="button"
+                        class="btn o_wlf_cta__btn o_calculator_submit d-none">
+                    <span class="o_calculator_submit__label" style="text-transform: capitalize;">Submit Enquiry</span>
+                </button>
             </div>
         </div>
-
-        <div class="o_calc_success d-none" id="calculator_success" role="status">
-            <div class="o_calc_success__icon" aria-hidden="true">✓</div>
-            <h3>Enquiry submitted!</h3>
-            <p>Thank you — our team will reach out shortly with your personalised solar proposal.</p>
-        </div>
-
-        <div class="o_calc_error alert alert-danger d-none" id="calculator_error" role="alert"/>
     </template>
 
-    <template id="calculator_actions" name="Calculator Actions">
-        <div class="o_calc_actions">
-            <button type="button" class="btn o_calc_btn o_calc_btn--outline o_calculator_compute">
-                Recalculate
-            </button>
-            <button type="button"
-                    class="btn btn-dark btn-lg o_wlf_hero__cta o_calc_btn o_calc_btn--primary o_calculator_submit">
-                Submit Enquiry
-            </button>
+    <template id="calculator_results" name="Calculator Pricing Results">
+        <div class="o_calc_pricing" id="calculator_pricing" aria-live="polite">
+            <header class="o_calc_pricing__header">
+                <h2 class="o_calc_pricing__title">Your solar estimate</h2>
+                <p class="o_calc_pricing__lead">
+                    Based on the details you shared — here is what solar could do for your property.
+                </p>
+            </header>
+
+            <div class="o_calc_pricing__hero">
+                <span class="o_calc_pricing__hero-label">Cost efficiency</span>
+                <p class="o_calc_pricing__hero-value">
+                    <span id="calculator_cost_efficiency">—</span>%
+                </p>
+                <p class="o_calc_pricing__hero-hint">of your consumption offset by solar</p>
+            </div>
+
+            <div class="o_calc_pricing__cards">
+                <article class="o_calc_pricing__card">
+                    <span class="o_calc_pricing__card-label">Est. monthly savings</span>
+                    <p class="o_calc_pricing__card-value">
+                        <span class="o_calc_currency_symbol" t-out="currency_symbol"/>
+                        <span id="calculator_monthly_savings">—</span>
+                    </p>
+                </article>
+                <article class="o_calc_pricing__card">
+                    <span class="o_calc_pricing__card-label">Est. annual savings</span>
+                    <p class="o_calc_pricing__card-value">
+                        <span class="o_calc_currency_symbol" t-out="currency_symbol"/>
+                        <span id="calculator_annual_savings">—</span>
+                    </p>
+                </article>
+                <article class="o_calc_pricing__card">
+                    <span class="o_calc_pricing__card-label">Est. consumption</span>
+                    <p class="o_calc_pricing__card-value">
+                        <span id="calculator_estimated_kwh">—</span> kWh
+                    </p>
+                    <span class="o_calc_pricing__card-hint">per month</span>
+                </article>
+                <article class="o_calc_pricing__card">
+                    <span class="o_calc_pricing__card-label">Solar yield</span>
+                    <p class="o_calc_pricing__card-value">
+                        <span id="calculator_solar_yield_kwh">—</span> kWh
+                    </p>
+                    <span class="o_calc_pricing__card-hint">per month</span>
+                </article>
+            </div>
+        </div>
+    </template>
+
+    <template id="calculator_outcome" name="Calculator Outcome">
+        <div class="o_calc_card o_calc_outcome d-none" id="calculator_outcome">
+            <div class="o_calc_success" id="calculator_success" role="status">
+                <div class="o_calc_success__icon" aria-hidden="true">✓</div>
+                <h3>Enquiry submitted!</h3>
+                <p>Thank you — our team will reach out shortly with your personalised solar proposal.</p>
+            </div>
+
+            <t t-call="union_energy_calculator.calculator_results"/>
+
+            <div class="o_calc_outcome__actions">
+                <button type="button" class="btn o_wlf_cta__btn o_calc_restart">
+                    <span style="text-transform: capitalize;">Start new calculation</span>
+                </button>
+            </div>
         </div>
     </template>
 
     <template id="calculator_form" name="Calculator Form">
-        <form id="union_energy_calculator_form" class="o_calc_card" novalidate="novalidate">
-            <t t-call="union_energy_calculator.calculator_section_enquiry_type"/>
-            <t t-call="union_energy_calculator.calculator_section_property"/>
-            <t t-call="union_energy_calculator.calculator_section_phase"/>
-            <t t-call="union_energy_calculator.calculator_section_contact"/>
-            <t t-call="union_energy_calculator.calculator_results"/>
-            <t t-call="union_energy_calculator.calculator_actions"/>
-        </form>
+        <div id="calculator_wizard">
+            <form id="union_energy_calculator_form" class="o_calc_card" novalidate="novalidate">
+                <t t-call="union_energy_calculator.calculator_progress"/>
+
+                <div class="o_calc_steps">
+                    <div class="o_calc_step" data-step="1">
+                        <t t-call="union_energy_calculator.calculator_section_enquiry_type"/>
+                    </div>
+                    <div class="o_calc_step d-none" data-step="2">
+                        <t t-call="union_energy_calculator.calculator_section_property"/>
+                    </div>
+                    <div class="o_calc_step d-none" data-step="3">
+                        <t t-call="union_energy_calculator.calculator_section_phase"/>
+                    </div>
+                    <div class="o_calc_step d-none" data-step="4">
+                        <t t-call="union_energy_calculator.calculator_section_contact"/>
+                    </div>
+                </div>
+
+                <div class="o_calc_error alert alert-danger d-none" id="calculator_error" role="alert"/>
+
+                <t t-call="union_energy_calculator.calculator_step_nav"/>
+            </form>
+        </div>
+        <t t-call="union_energy_calculator.calculator_outcome"/>
     </template>
 
     <template id="calculator_page_content" name="Calculator Page Content">

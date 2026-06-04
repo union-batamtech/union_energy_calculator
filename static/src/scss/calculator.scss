@@ -24,7 +24,7 @@
 
 .o_union_energy_calculator .o_calc_hero__title {
     color: var(--o-wlf-orange);
-    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    font-size: o-wlf-unquote("clamp(1.35rem, 2.4vw, 1.75rem)");
     font-weight: 700;
     line-height: 1.35;
     margin-bottom: 1rem;
@@ -32,7 +32,7 @@
 }
 
 .o_union_energy_calculator .o_calc_hero__subtitle {
-    font-size: clamp(0.95rem, 1.1vw, 1.0625rem);
+    font-size: o-wlf-unquote("clamp(0.95rem, 1.1vw, 1.0625rem)");
     line-height: 1.7;
     color: var(--o-wlf-body-muted);
     max-width: 36rem;
@@ -62,7 +62,7 @@
 }
 
 .o_union_energy_calculator .o_calc_section__title {
-    font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+    font-size: o-wlf-unquote("clamp(1.1rem, 1.8vw, 1.25rem)");
     font-weight: 700;
     text-transform: none;
     letter-spacing: normal;

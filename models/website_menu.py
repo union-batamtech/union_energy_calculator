@@ -1,8 +1,8 @@
 from odoo import api, models
 
 CALCULATOR_MENU_URL = '/solar-savings-calculator'
-CALCULATOR_MENU_NAME = 'Solar Savings Calculator'
-CALCULATOR_MENU_SEQUENCE = 16
+CALCULATOR_MENU_NAME = 'Calculator'
+CALCULATOR_MENU_SEQUENCE = 20
 
 
 class WebsiteMenu(models.Model):
@@ -10,50 +10,40 @@ class WebsiteMenu(models.Model):
 
     @api.model
     def _union_energy_calculator_ensure_menu(self):
-        """Ensure calculator menu lives under each website top menu (visible in navbar)."""
-        default_main = self.env.ref('website.main_menu', raise_if_not_found=False)
-        if not default_main:
-            return
-
+        """One Calculator entry as direct child of the site top menu."""
+        Menu = self.sudo()
         for website in self.env['website'].search([]):
-            top_menu = website.menu_id
+            top_menu = self._union_energy_web_get_site_top_menu(website)
             if not top_menu:
                 continue
 
-            all_menus = self.search([('url', '=', CALCULATOR_MENU_URL)])
-            under_top = all_menus.filtered(lambda m: m.parent_id == top_menu)
-            under_default = all_menus.filtered(
-                lambda m: m.parent_id == default_main
-            )
-            stray = all_menus - under_top - under_default
+            matches = Menu.search([
+                '|',
+                ('url', '=', CALCULATOR_MENU_URL),
+                '&',
+                ('name', '=', CALCULATOR_MENU_NAME),
+                ('website_id', 'in', (False, website.id)),
+            ], order='id')
+            matches = matches.filtered(lambda m: m.id != top_menu.id)
 
+            under_top = matches.filtered(lambda m: m.parent_id == top_menu)
             if under_top:
-                under_top[:1].write({
+                keep = under_top[0]
+            elif matches:
+                keep = matches[0]
+            else:
+                keep = Menu.create({
                     'name': CALCULATOR_MENU_NAME,
-                    'website_id': website.id,
-                    'sequence': CALCULATOR_MENU_SEQUENCE,
-                    'page_id': False,
-                })
-                (under_top[1:] | under_default | stray).unlink()
-                continue
-
-            if under_default:
-                under_default[:1].write({
-                    'name': CALCULATOR_MENU_NAME,
+                    'url': CALCULATOR_MENU_URL,
                     'parent_id': top_menu.id,
                     'website_id': website.id,
                     'sequence': CALCULATOR_MENU_SEQUENCE,
-                    'page_id': False,
                 })
-                (under_default[1:] | stray).unlink()
-                continue
 
-            stray.unlink()
-            self.create({
-                'name': CALCULATOR_MENU_NAME,
-                'url': CALCULATOR_MENU_URL,
-                'parent_id': top_menu.id,
-                'website_id': website.id,
-                'sequence': CALCULATOR_MENU_SEQUENCE,
-                'page_id': False,
-            })
+            if keep.child_id:
+                keep.child_id.write({'parent_id': top_menu.id})
+
+            self._union_energy_web_safe_unlink_menus(matches - keep)
+            self._union_energy_web_write_nav_item(
+                keep, top_menu, website, CALCULATOR_MENU_NAME, CALCULATOR_MENU_URL, CALCULATOR_MENU_SEQUENCE,
+            )

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="0">
+<odoo>
     <function model="website.menu" name="_union_energy_calculator_ensure_menu"/>
     <function model="website.page" name="_union_energy_calculator_apply_website_config"/>
 </odoo>

@@ -6,7 +6,7 @@
     'category': 'Union Energy',
     'author': 'BatamTech',
     'sequence': 10,
-    'version': '1.3.7',
+    'version': '1.3.11',
     'description': "This module allows to publish the Union Energy calculator.",
     'depends': ['web', 'website', 'crm', 'union_energy_web'],
     'data': [

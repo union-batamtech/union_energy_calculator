@@ -6,10 +6,9 @@ class WebsitePage(models.Model):
 
     @api.model
     def _union_energy_calculator_apply_website_config(self):
-        """Unpublish CMS page; controller serves /solar-savings-calculator."""
-        page = self.env.ref(
-            'union_energy_web.page_solar_savings_calculator',
-            raise_if_not_found=False,
-        )
-        if page:
-            page.is_published = False
+        """Route is served by controller; unpublish any leftover CMS page."""
+        pages = self.env['website.page'].sudo().search([
+            ('url', '=', '/solar-savings-calculator'),
+        ])
+        if pages:
+            pages.write({'is_published': False})

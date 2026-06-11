@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="crm_tag_website_contactus" model="crm.tag">
+        <field name="name">Website Contact Us</field>
+        <field name="color" eval="2"/>
+    </record>
+</odoo>
